@@ -8,7 +8,11 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 COPY index.js .
 
-# Instalar dependencias
+# Copiar tests y la "base de datos" JSON (requerido para correr los tests dentro de la imagen)
+COPY tests ./tests
+COPY users.json .
+
+# Instalar dependencias (incluye devDependencies: jest y supertest)
 RUN npm ci
 
 # Exponer el puerto de la aplicación

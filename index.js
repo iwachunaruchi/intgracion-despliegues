@@ -111,7 +111,12 @@ app.get('/users/:id', (req, res) => {
     res.json({ user });
 });
 
-// Iniciar el servidor
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Servidor corriendo en http://0.0.0.0:${PORT}`);
-});
+// Exportar la app para poder probarla con supertest sin levantar el servidor
+module.exports = app;
+
+// Iniciar el servidor solo cuando se ejecuta directamente (no bajo Jest)
+if (require.main === module) {
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`Servidor corriendo en http://0.0.0.0:${PORT}`);
+    });
+}

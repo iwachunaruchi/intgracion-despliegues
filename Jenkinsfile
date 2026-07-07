@@ -13,6 +13,14 @@ pipeline {
             }
         }
 
+        stage('Ejecutar Pruebas') {
+            steps {
+                // Corre los tests dentro de la imagen ya construida.
+                // Si Jest falla, el comando devuelve un codigo != 0 y el pipeline se detiene aqui.
+                sh 'docker run --rm hola-mundo-node:latest npm test'
+            }
+        }
+
         stage('Ejecutar Contenedor Node.js') {
             steps {
                 sh '''
